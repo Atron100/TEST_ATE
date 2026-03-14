@@ -26,10 +26,14 @@ class ATEApplication(QObject):
             return
 
         try:
-            is_valid_login = self._login_repository.validate_credentials(
-                username=username,
-                password=password,
-            )
+            is_valid_login = self._login_repository.validate_credentials(username=username, password=password)
+
+            if is_valid_login:
+                status_query = self._login_repository.return_status(username=username)
+                print(f"User {username} status: {status_query}")
+            else:
+                print(f"User {username} failed to log in.")
+                
         except AuthenticationServiceError as exc:
             self._login_window.show_error(str(exc))
             return
@@ -38,12 +42,6 @@ class ATEApplication(QObject):
             self._login_window.show_error("Invalid username or password.")
             return
 
-        try:
-            user_status = self._login_repository.return_status(username=username)
-        except AuthenticationServiceError as exc:
-            self._login_window.show_error(str(exc))
-            return
-
-        self._main_window = MainWindow(username=username, status=user_status)
+        self._main_window = MainWindow(username=username, status=int(status_query))
         self._main_window.show()
         self._login_window.close()
