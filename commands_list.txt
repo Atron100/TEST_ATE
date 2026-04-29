@@ -1,0 +1,17 @@
+{ "cmd": "POWER_SUPPLY", "args": ["SETUP_VOLTAGE", 12] }
+{ "cmd": "POWER_SUPPLY", "args": ["SETUP_CURRENT", 12] }
+{ "cmd": "POWER_SUPPLY", "args": ["MEASURE_VOLT", 0] }
+{ "cmd": "POWER_SUPPLY", "args": ["MEASURE_CURR", 0] }
+{ "cmd": "POWER_SUPPLY", "args": ["POWER_ON", 0] }
+{ "cmd": "POWER_SUPPLY", "args": ["POWER_OFF", 0] }
+{ "cmd": "DMM", "args": ["MEASURE_VOLTAGE", 0] }
+{ "cmd": "DMM", "args": ["MEASURE_CURRENT", 0] }
+{ "cmd": "DMM", "args": ["MEASURE_POWER", 0] }
+{ "cmd": "DMM", "args": ["SETUP_RANGE", XX] }
+{ "cmd": "DMM", "args": ["SETUP_CALIB", XX] }
+{ "cmd": "MUX", "args": ["CONFIG_DO", XX] }
+{ "cmd": "MUX", "args": ["CONFIG_DI", XX] }
+{ "cmd": "MUX", "args": ["SETUP_ADDRESS", XX] }
+{ "cmd": "SERIAL", "args": ["command", 12] }
+{ "cmd": "SSH", "args": ["command", 12] }
+

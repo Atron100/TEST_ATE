@@ -1,0 +1,156 @@
+{
+  "schema_version": "2.0",
+  "sequence_name": "DIGITAL_BOARD_PCBA",
+  "version": "10.0.1",
+  "station": {
+    "name": "ATE PCBA",
+    "station_id": "PCBA_032025",
+    "board_pn": "APB000000804"
+  },
+  "defaults": {
+    "enabled": true,
+    "timeout_ms": 60000,
+    "retries": 0
+  },
+  "tests": [
+    {
+      "id": 1,
+      "type": "test",
+      "parent_id": null,
+      "enabled": true,
+      "name": "TURN ON MAIN 12VDC",
+      "units": "BOOL",
+      "limits": { "min": 1, "max": 1 },
+      "preset": {},
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "SHOW_MESSAGE", "args": ["CONNECT THE POWER SUPPLY"] },
+		{ "cmd": "PS_MAIN_SET_VOLTAGE", "args": [12.0] },
+		{ "cmd": "PS_MAIN_SET_CURRENT", "args": [8.0] },
+		{ "cmd": "PS_MAIN_MEASURE_CURRENT", "args": [] }
+      ]
+    },
+	{
+      "id": 2,
+      "type": "test",
+      "parent_id": null,
+      "enabled": true,
+      "name": "CPLD Programming",
+      "units": "BOOL",
+      "limits": { "min": 1, "max": 1 },
+      "preset": {},
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "CPLD_BURN", "args": ["C:\\BurnImage\\LSBB_CPLD_EraseProgVerify.xcf"] }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "group",
+      "parent_id": null,
+      "enabled": true,
+      "name": "ANALOG VOLTAGE TESTS"
+    },
+    {
+      "id": 4,
+      "type": "test",
+      "parent_id": 3,
+      "enabled": true,
+      "name": "MAIN 12V",
+      "units": "V",
+      "limits": { "min": 11.5, "max": 12.5 },
+      "preset": { "tp": "TP_1" },
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "MUX_CONFIG", "args": [1] },
+        { "cmd": "DMM_MEASURE_VOLTAGE", "args": [] }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "test",
+      "parent_id": 3,
+      "enabled": true,
+      "name": "ANALOG 3.3V",
+      "units": "V",
+      "limits": { "min": 3.1, "max": 3.5 },
+      "preset": { "tp": "TP_3V3" },
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "MUX_CONFIG", "args": [2] },
+        { "cmd": "DMM_MEASURE_VOLTAGE", "args": [] }
+        
+      ]
+    },
+	{
+      "id": 6,
+      "type": "test",
+      "parent_id": 3,
+      "enabled": true,
+      "name": "ANALOG 5.3V",
+      "units": "V",
+      "limits": { "min": 5.0, "max": 5.6 },
+      "preset": { "tp": "TP_5V3" },
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "MUX_CONFIG", "args": [2] },
+        { "cmd": "DMM_MEASURE_VOLTAGE", "args": [] }        
+      ]
+    },
+	{
+      "id":7,
+      "type": "test",
+      "parent_id": 3,
+      "enabled": true,
+      "name": "ANALOG 3.3V",
+      "units": "V",
+      "limits": { "min": 3.1, "max": 3.5 },
+      "preset": { "tp": "TP_3V3" },
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "MUX_CONFIG", "args": [25] },
+        { "cmd": "DMM_MEASURE_VOLTAGE", "args": [] }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "group",
+      "parent_id": null,
+      "enabled": true,
+      "name": "DIGITAL TESTS"
+    },
+    {
+      "id": 9,
+      "type": "test",
+      "parent_id": 8,
+      "enabled": true,
+      "name": "DIGITAL TP V1",
+      "units": "BOOL",
+      "limits": { "min": 1, "max": 1 },
+      "preset": { "tp": "V1" },
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "MUX_READ_DO", "args": [1] }
+      ]
+    },
+    {
+      "id": 10,
+      "type": "test",
+      "parent_id": null,
+      "enabled": true,
+      "name": "POWER_SETUP",
+      "units": "V",
+      "limits": { "min": 1, "max": 1 },
+      "preset": {},
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "PS_MAIN_SET_VOLTAGE", "args": [12.0] },
+		    { "cmd": "PS_MAIN_SET_CURRENT", "args": [12.0] },
+		    { "cmd": "PS_MAIN_POWER_ON", "args": [] },
+		    { "cmd": "PS_MAIN_MEASURE_VOLTAGE", "args": [] },
+		    { "cmd": "PS_MAIN_MEASURE_CURRENT", "args": [] },
+		    { "cmd": "PS_MAIN_POWER_OFF", "args": [] }
+      ]
+    }
+  ]
+}

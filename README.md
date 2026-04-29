@@ -8,6 +8,7 @@
 - Entry point: [main.py](/D:/Work/TEST_ATE/main.py)
 - Main UI template: [MAIN_ATE.ui](/D:/Work/TEST_ATE/MAIN_ATE.ui)
 - Database config: [db_config.ini](/D:/Work/TEST_ATE/db_config.ini)
+- Tools config: [tools_config.ini](/D:/Work/TEST_ATE/tools_config.ini)
 - Authentication source: `TEST_DB.dbo.logins`
 
 The application currently includes:
@@ -16,6 +17,7 @@ The application currently includes:
 - SQL Server credential validation using the values from `db_config.ini`
 - A main window loaded from the `.ui` template
 - A DB Config dialog that displays the active database settings
+- A Tools Config dialog that displays configured hardware resources
 - A real-time date and time label on the main window
 
 ## Forms
@@ -52,6 +54,7 @@ Current behavior:
 - Uses the format `dd/MM/yyyy HH:mm:ss`
 - `EXIT` closes the main window
 - `DB CONFIG` opens the DB Config form
+- `TOOLS CONFIG` opens the hardware resources form
 
 ### DB Config Form
 
@@ -69,6 +72,29 @@ Behavior:
 - Opens from the `DB CONFIG` button in the main window
 - Includes a `Close` button to close the dialog
 
+### Tools Config Form
+
+Files:
+- [ate_app/tools_config_window.py](/D:/Work/TEST_ATE/ate_app/tools_config_window.py)
+- [ate_app/tools_config.py](/D:/Work/TEST_ATE/ate_app/tools_config.py)
+- [tools_config.ini](/D:/Work/TEST_ATE/tools_config.ini)
+
+Purpose:
+- Displays hardware resource settings read from `tools_config.ini`
+
+Displayed fields:
+- PS Main
+- PS Second
+- Serial COM Port
+- SSH
+- Network Analyzer
+- VNA
+
+Behavior:
+- Opens from the `TOOLS CONFIG` button in the main window
+- Includes a `Close` button to close the dialog
+- Shows a warning message if `tools_config.ini` is missing or incomplete
+
 ## Main Modules
 
 - [ate_app/application.py](/D:/Work/TEST_ATE/ate_app/application.py)
@@ -76,6 +102,9 @@ Behavior:
 
 - [ate_app/database.py](/D:/Work/TEST_ATE/ate_app/database.py)
   Reads `db_config.ini`, validates login credentials, and retrieves user status from SQL Server.
+
+- [ate_app/tools_config.py](/D:/Work/TEST_ATE/ate_app/tools_config.py)
+  Reads `tools_config.ini` and validates the hardware resource entries for the tools dialog.
 
 ## Run
 

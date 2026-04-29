@@ -1,0 +1,136 @@
+{
+  "schema_version": "2.0",
+  "sequence_name": "TXFEM BOARD PCBA",
+  "version": "10.0.1",
+  "station": {
+    "name": "ATE PCBA",
+    "station_id": "PCBA_032025",
+    "board_pn": "APB000000805"
+  },
+  "defaults": {
+    "enabled": true,
+    "timeout_ms": 60000,
+    "retries": 0
+  },
+  "tests": [
+    {
+      "id": 1,
+      "type": "test",
+      "parent_id": null,
+      "enabled": true,
+      "name": "TURN ON MAIN 12VDC",
+      "units": "BOOL",
+      "limits": { "min": 1, "max": 1 },
+      "preset": {},
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "SHOW_MESSAGE", "args": ["CONNECT THE POWER SUPPLY"] },
+		{ "cmd": "POWER_SUPPLY", "args": ["SETUP_VOLTAGE", 12] },
+		{ "cmd": "POWER_SUPPLY", "args": ["SETUP_CURRENT", 8] },
+		{ "cmd": "POWER_SUPPLY", "args": ["MEASURE_CURRENT", 0] }
+      ]
+    },
+	{
+      "id": 2,
+      "type": "test",
+      "parent_id": null,
+      "enabled": true,
+      "name": "CPLD BURN",
+      "units": "BOOL",
+      "limits": { "min": 1, "max": 1 },
+      "preset": {},
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "CPLD_BURN", "args": ["C:\\BurnImage\\LSBB_CPLD_EraseProgVerify.xcf"] }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "group",
+      "parent_id": null,
+      "enabled": true,
+      "name": "CPLD VOLTAGE TESTS"
+    },
+    {
+      "id": 4,
+      "type": "test",
+      "parent_id": 3,
+      "enabled": true,
+      "name": "MAIN 12V",
+      "units": "V",
+      "limits": { "min": 11.5, "max": 12.5 },
+      "preset": { "tp": "TP_12V" },
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "MEASURE_VOLTAGE", "args": ["TP_12V"] }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "test",
+      "parent_id": 3,
+      "enabled": true,
+      "name": "ANALOG 3.3V",
+      "units": "V",
+      "limits": { "min": 3.1, "max": 3.5 },
+      "preset": { "tp": "TP_3V3" },
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "MEASURE_VOLTAGE", "args": [0] },
+        { "cmd": "MUX_SET", "args": [2] }
+      ]
+    },
+	{
+      "id": 6,
+      "type": "test",
+      "parent_id": 3,
+      "enabled": true,
+      "name": "ANALOG 3.3V",
+      "units": "V",
+      "limits": { "min": 3.1, "max": 3.5 },
+      "preset": { "tp": "TP_3V3" },
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "MEASURE_VOLTAGE", "args": [0] },
+        { "cmd": "MUX_SET", "args": [2] }
+      ]
+    },
+	{
+      "id":7,
+      "type": "test",
+      "parent_id": 3,
+      "enabled": true,
+      "name": "ANALOG 3.3V",
+      "units": "V",
+      "limits": { "min": 3.1, "max": 3.5 },
+      "preset": { "tp": "TP_3V3" },
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "MEASURE_VOLTAGE", "args": [0] },
+        { "cmd": "MUX_SET", "args": [2] }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "group",
+      "parent_id": null,
+      "enabled": true,
+      "name": "DIGITAL TESTS"
+    },
+    {
+      "id": 9,
+      "type": "test",
+      "parent_id": 8,
+      "enabled": true,
+      "name": "DIGITAL TP V1",
+      "units": "BOOL",
+      "limits": { "min": 1, "max": 1 },
+      "preset": { "tp": "V1" },
+      "execution": { "on_fail": "STOP" },
+      "steps": [
+        { "cmd": "READ_DIGITAL", "args": ["V1"] }
+      ]
+    }
+    
+  ]
+}
